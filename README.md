@@ -4,7 +4,7 @@ TheTime.js - Time&Date Framework for JS and Node.js
 
 **It is time to fix broken clocks!**
 
-![It is time to fix broken clocks](https://raw.github.com/the-teacher/the_time/master/liquid_clock.jpg)
+![It is time to fix broken clocks](https://raw.github.com/the-teacher/TheTime.js/master/liquid_clock.jpg)
 
 ### Keywords
 
