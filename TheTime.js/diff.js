@@ -1,9 +1,9 @@
 (function() {
 
-  Moment.prototype.months_diff = function(M1, M2) {
+  Time.prototype.months_diff = function(M1, M2) {
     var months_between, years, years_abs;
-    M1 = Moment.want(M1);
-    M2 = Moment.want(M2);
+    M1 = Time.want(M1);
+    M2 = Time.want(M2);
     years = M1.year - M2.year;
     years_abs = Math.abs(years);
     if (years > 0) {
@@ -17,15 +17,15 @@
     }
   };
 
-  Moment.diff = function(M1, M2) {
-    M1 = Moment.want(M1);
-    M2 = Moment.want(M2);
+  Time.diff = function(M1, M2) {
+    M1 = Time.want(M1);
+    M2 = Time.want(M2);
     return M1.diff(M2);
   };
 
-  Moment.prototype.diff = function(M) {
+  Time.prototype.diff = function(M) {
     var hours, min, res, sec;
-    M = Moment.want(M);
+    M = Time.want(M);
     sec = 60;
     min = 60;
     hours = 24;
