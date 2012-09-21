@@ -3,7 +3,7 @@
 Extension of day's functions
 
 ```javascript
-M = new Moment
+M = new Time
 ```
 
 Check for day's period

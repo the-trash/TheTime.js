@@ -20,9 +20,9 @@ TheTime.js makes work with JS Date object easier and more humane.
 
 ### How?
 
-* **TheTime.js** provide wrapper-class **Moment** for Date.
-* Use **Moment** class as an alternative of **Date** class
-* Easy convert between Moment and Date classes
+* **TheTime.js** provide wrapper-class **Time** for Date.
+* Use **Time** class as an alternative of **Date** class
+* Easy convert between Time and Date classes
 * Set dates by an array of numbers. For example, **[2012, 3, 17, 23, 54, 23]** will become **17-03-2012 23:54:23**
 * Set a date by using strings. For example **'2012-10-01 16:55'** or **'2012/10/01 16:55'** or **'2012.10.01.16.55'**
 * Work with intuitive getters and setters.
@@ -42,7 +42,7 @@ TheTime.js makes work with JS Date object easier and more humane.
 require('/path/to/the_time/i18n_default.js');
 require('/path/to/the_time/core.js');
 
-console.log(Moment.o_mori)
+console.log(Time.o_mori)
 ```
 
 ### Browser
@@ -55,7 +55,7 @@ console.log(Moment.o_mori)
 ```
 
 ```javascript
-console.log(Moment.o_mori)
+console.log(Time.o_mori)
 ```
 
 ### Framework structure
@@ -85,39 +85,39 @@ Framework's core  consists of the default localization file (En) and the core fi
 
 ## TheTime.js Core
 
-**Date** <=> **Moment**
+**Date** <=> **Time**
 
 ```javascript
-D = new Date // current moment
-D.to_m() => Moment object
+D = new Date // current Time
+D.to_m() => Time object
 ```
 
 ```javascript
-M = new Moment // current moment
+M = new Time // current Time
 M.date => Date object
 ```
 
 Ways to difine a date
 
 ```javascript
-M = new Moment
+M = new Time
 
-M = new Moment([2012, 3, 27, 23, 54, 59])
+M = new Time([2012, 3, 27, 23, 54, 59])
 
-M = new Moment('2012/3/27 23:54:59')
+M = new Time('2012/3/27 23:54:59')
 
-M = new Moment('2012-3-27 23:54:59')
+M = new Time('2012-3-27 23:54:59')
 
-M = new Moment('2012.3.27.23.54.59')
+M = new Time('2012.3.27.23.54.59')
 
-M = new Moment({ 'year': 2012, 'month': 3, 'day': 27, 'hours': 23, 'mins': 54, 'secs': 59 })
+M = new Time({ 'year': 2012, 'month': 3, 'day': 27, 'hours': 23, 'mins': 54, 'secs': 59 })
 
 ```
 
 Getters
 
 ```javascript
-M = new Moment([2012, 3, 27, 23, 54, 59])
+M = new Time([2012, 3, 27, 23, 54, 59])
 
 M.year    => 2012
 M.month   => 3
@@ -139,7 +139,7 @@ M.to_a() => [2012, 3, 27, 23, 54, 59, 0, 4]
 Setters
 
 ```javascript
-M = new Moment([2012, 3, 27, 23, 54, 59])
+M = new Time([2012, 3, 27, 23, 54, 59])
 
 M.setYear(2010)
 M.setMonth(6)
@@ -161,7 +161,7 @@ M.to_a() => [2009, 2, 14, 3, 31, 30, 678, 4]
 Localized names
 
 ```javascript
-M = new Moment([2012, 3, 27, 23, 54, 59])
+M = new Time([2012, 3, 27, 23, 54, 59])
 
 M.month_name()  => "March"
 M.day_of_week() => 2
@@ -171,7 +171,7 @@ M.day_name()    => "Tuesday"
 Base formats
 
 ```javascript
-M = new Moment([2012, 3, 27, 23, 54, 59])
+M = new Time([2012, 3, 27, 23, 54, 59])
 
 M.to_a()    => [2012, 3, 27, 23, 54, 59]
 M.to_hash() => { year: 2012, month: 3, day: 27, hours: 23, mins: 54, secs: 59, ms: 0, offset: 4 }
@@ -183,27 +183,27 @@ M.toDayString()   => "2012.3.27"
 Helpers
 
 ```javascript
-Moment.toLeadingZero(3)  => "03"
-Moment.toLeadingZero(15) => "15"
+Time.toLeadingZero(3)  => "03"
+Time.toLeadingZero(15) => "15"
 
-Moment.toLeadingZero(-3)  => "03"
-Moment.toLeadingZero(-15) => "15"
+Time.toLeadingZero(-3)  => "03"
+Time.toLeadingZero(-15) => "15"
 
-Moment.toLeadingZero(-3,  true) => "-03"
-Moment.toLeadingZero(-15, true) => "-15"
+Time.toLeadingZero(-3,  true) => "-03"
+Time.toLeadingZero(-15, true) => "-15"
 ```
 
-Return Moment instance
+Return Time instance
 
 ```javascript
-M = new Moment
-Moment.want(M) => Moment
+M = new Time
+Time.want(M) => Time
 
 M = [2010, 6, 15, 25, 41, 56, 678, 4]
-Moment.want(M) => Moment
+Time.want(M) => Time
 
 M = new Date
-Moment.want(M) => Moment
+Time.want(M) => Time
 ```
 
 Localization

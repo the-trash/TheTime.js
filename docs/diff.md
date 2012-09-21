@@ -3,8 +3,8 @@
 Return **diff** structure with many pre-calculated difference variables
 
 ```javascript
-M1 = new Moment([2010, 9, 13, 12, 53, 46])
-M2 = new Moment([2012, 3, 20, 23, 34, 11])
+M1 = new Time([2010, 9, 13, 12, 53, 46])
+M2 = new Time([2012, 3, 20, 23, 34, 11])
 
 diff = M1.diff(M2)
 ```

@@ -1,7 +1,7 @@
 (function() {
-  var DefaultMomentLocale, scope;
+  var DefaultTimeLocale, scope;
 
-  DefaultMomentLocale = {
+  DefaultTimeLocale = {
     localeName: 'en',
     locale: {
       'month': {
@@ -25,6 +25,6 @@
 
   scope = typeof window === 'object' ? window : global;
 
-  scope.DefaultMomentLocale = DefaultMomentLocale;
+  scope.DefaultTimeLocale = DefaultTimeLocale;
 
 }).call(this);

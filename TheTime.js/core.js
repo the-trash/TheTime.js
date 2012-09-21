@@ -1,9 +1,9 @@
 (function() {
-  var Moment, scope, _size,
+  var Time, scope, _size,
     _this = this;
 
   Date.prototype.to_m = function() {
-    return new Moment(_this);
+    return new Time(_this);
   };
 
   _size = function(obj) {
@@ -17,11 +17,11 @@
     return size;
   };
 
-  Moment = (function() {
+  Time = (function() {
 
-    Moment.o_mori = "Respice post te! Hominem te memento! (Look behind you! Remember that you are but a man!)";
+    Time.o_mori = "Respice post te! Hominem te memento! (Look behind you! Remember that you are but a man!)";
 
-    Moment.toLeadingZero = function(int, sign) {
+    Time.toLeadingZero = function(int, sign) {
       var num, t, _sign;
       if (sign == null) {
         sign = false;
@@ -32,57 +32,57 @@
       return t = Math.abs(int) < 10 ? "" + _sign + "0" + num : "" + _sign + num;
     };
 
-    Moment.prototype.locales = {};
+    Time.prototype.locales = {};
 
-    Moment.prototype.localeName = null;
+    Time.prototype.localeName = null;
 
-    Moment.prototype.currentLocale = null;
+    Time.prototype.currentLocale = null;
 
-    Moment["new"] = function(data) {
-      return new Moment(data);
+    Time["new"] = function(data) {
+      return new Time(data);
     };
 
-    Moment.addLocale = function(name, locale) {
-      Moment.prototype.locales[name] = locale;
-      return Moment.prototype.localeName = name;
+    Time.addLocale = function(name, locale) {
+      Time.prototype.locales[name] = locale;
+      return Time.prototype.localeName = name;
     };
 
-    Moment.setDefaultLocale = function(name) {
-      Moment.prototype.localeName = name;
-      return Moment.prototype.currentLocale = Moment.prototype.locales[name];
+    Time.setDefaultLocale = function(name) {
+      Time.prototype.localeName = name;
+      return Time.prototype.currentLocale = Time.prototype.locales[name];
     };
 
-    Moment.want = function(M) {
-      return M = M instanceof Moment ? M : new Moment(M);
+    Time.want = function(M) {
+      return M = M instanceof Time ? M : new Time(M);
     };
 
-    Moment.prototype.setLocale = function(name) {
+    Time.prototype.setLocale = function(name) {
       this.localeName = name;
       this.currentLocale = this.locales[name];
       return this.t = this.currentLocale;
     };
 
-    function Moment(date) {
+    function Time(date) {
       var l, n, _ref;
       this.scope = typeof window === 'object' ? window : global;
       if (_size(this.locales) === 0) {
-        _ref = [DefaultMomentLocale.localeName, DefaultMomentLocale.locale], n = _ref[0], l = _ref[1];
-        Moment.addLocale(n, l);
-        Moment.setDefaultLocale(n);
+        _ref = [DefaultTimeLocale.localeName, DefaultTimeLocale.locale], n = _ref[0], l = _ref[1];
+        Time.addLocale(n, l);
+        Time.setDefaultLocale(n);
       }
       this.t = this.currentLocale;
       this.parse(date);
     }
 
-    Moment.prototype.month_name = function() {
+    Time.prototype.month_name = function() {
       return this.t.month.name[this.month];
     };
 
-    Moment.prototype.day_name = function() {
+    Time.prototype.day_name = function() {
       return this.t.day.name[this.day_of_week()];
     };
 
-    Moment.prototype.day_of_week = function(date) {
+    Time.prototype.day_of_week = function(date) {
       var day;
       if (date == null) {
         date = this.date;
@@ -91,11 +91,11 @@
       return day = day === 0 ? 7 : day;
     };
 
-    Moment.prototype.to_a = function() {
+    Time.prototype.to_a = function() {
       return [this.year, this.month, this.day, this.hours, this.mins, this.secs, this.ms, this.offset];
     };
 
-    Moment.prototype.to_hash = function() {
+    Time.prototype.to_hash = function() {
       return {
         year: this.year,
         month: this.month,
@@ -108,76 +108,76 @@
       };
     };
 
-    Moment.prototype.toMonthString = function() {
+    Time.prototype.toMonthString = function() {
       return "" + this.year + "." + this.month;
     };
 
-    Moment.prototype.toDayString = function() {
+    Time.prototype.toDayString = function() {
       return "" + this.year + "." + this.month + "." + this.day;
     };
 
-    Moment.prototype.set = function(d) {
+    Time.prototype.set = function(d) {
       return this.parse(d);
     };
 
-    Moment.prototype.setYear = function(y) {
+    Time.prototype.setYear = function(y) {
       var d;
       d = this.date;
       d.setYear(y);
       return this.parse(d);
     };
 
-    Moment.prototype.setMonth = function(m) {
+    Time.prototype.setMonth = function(m) {
       var d;
       d = this.date;
       d.setMonth(m - 1);
       return this.parse(d);
     };
 
-    Moment.prototype.setDay = function(_d) {
+    Time.prototype.setDay = function(_d) {
       var d;
       d = this.date;
       d.setDate(_d);
       return this.parse(d);
     };
 
-    Moment.prototype.setHours = function(h) {
+    Time.prototype.setHours = function(h) {
       var d;
       d = this.date;
       d.setHours(h);
       return this.parse(d);
     };
 
-    Moment.prototype.setMins = function(m) {
+    Time.prototype.setMins = function(m) {
       var d;
       d = this.date;
       d.setMinutes(m);
       return this.parse(d);
     };
 
-    Moment.prototype.setSecs = function(s) {
+    Time.prototype.setSecs = function(s) {
       var d;
       d = this.date;
       d.setSeconds(s);
       return this.parse(d);
     };
 
-    Moment.prototype.setMs = function(ms) {
+    Time.prototype.setMs = function(ms) {
       var d;
       d = this.date;
       d.setMilliseconds(ms);
       return this.parse(d);
     };
 
-    Moment.prototype.setUnix = function(sec) {
+    Time.prototype.setUnix = function(sec) {
       return this.parse(sec);
     };
 
-    Moment.prototype.setUnixMs = function(ms) {
+    Time.prototype.setUnixMs = function(ms) {
       return this.parseDate(new Date(ms));
     };
 
-    Moment.prototype.setDateByInstances = function() {
+    Time.prototype.setDateByInstances = function() {
       var date, month;
       date = new Date(0);
       month = this.month > 0 ? this.month - 1 : this.month;
@@ -191,70 +191,70 @@
       return this.date = date;
     };
 
-    Moment.prototype._year = function(date) {
+    Time.prototype._year = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getFullYear();
     };
 
-    Moment.prototype._month = function(date) {
+    Time.prototype._month = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getMonth() + 1;
     };
 
-    Moment.prototype._day = function(date) {
+    Time.prototype._day = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getDate();
     };
 
-    Moment.prototype._hours = function(date) {
+    Time.prototype._hours = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getHours();
     };
 
-    Moment.prototype._mins = function(date) {
+    Time.prototype._mins = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getMinutes();
     };
 
-    Moment.prototype._secs = function(date) {
+    Time.prototype._secs = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getSeconds();
     };
 
-    Moment.prototype._ms = function(date) {
+    Time.prototype._ms = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getMilliseconds();
     };
 
-    Moment.prototype._offset = function(date) {
+    Time.prototype._offset = function(date) {
       if (date == null) {
         date = new Date;
       }
       return -(date.getTimezoneOffset() / 60);
     };
 
-    Moment.prototype._unix_ms = function(date) {
+    Time.prototype._unix_ms = function(date) {
       if (date == null) {
         date = new Date;
       }
       return date.getTime();
     };
 
-    Moment.prototype.parse = function(date) {
+    Time.prototype.parse = function(date) {
       var empty;
       if (!date) {
         this.parseDate();
@@ -281,14 +281,14 @@
         if (date instanceof Object) {
           return this.parseHash(date);
         }
-        if (date instanceof Moment) {
-          return new Moment(date.to_a());
+        if (date instanceof Time) {
+          return new Time(date.to_a());
         }
       }
       return this;
     };
 
-    Moment.prototype.parseDate = function(date) {
+    Time.prototype.parseDate = function(date) {
       if (date == null) {
         date = new Date;
       }
@@ -306,7 +306,7 @@
       return this;
     };
 
-    Moment.prototype.parseArray = function(date) {
+    Time.prototype.parseArray = function(date) {
       var _date;
       if (date.length === 0) {
         return this.parseDate();
@@ -324,7 +324,7 @@
       return this.parseDate(this.date);
     };
 
-    Moment.prototype.parseHash = function(date) {
+    Time.prototype.parseHash = function(date) {
       var empty_hash, _date;
       empty_hash = !date['year'] && !date['month'] && !date['day'] && !date['hours'] && !date['mins'] && !date['secs'] && !date['ms'];
       if (empty_hash) {
@@ -343,7 +343,7 @@
       return this.parseDate(this.date);
     };
 
-    Moment.prototype.parseString = function(date) {
+    Time.prototype.parseString = function(date) {
       var _date;
       if (date.match('-') && date.match(':') && !date.match('T')) {
         date = date.replace(/-/g, '/');
@@ -355,26 +355,26 @@
       return this.parseDate(_date);
     };
 
-    Moment.prototype.parseNumber = function(date) {
+    Time.prototype.parseNumber = function(date) {
       var _date;
       _date = new Date(date);
       return this.parseDate(_date);
     };
 
-    return Moment;
+    return Time;
 
   })();
 
   scope = typeof window === 'object' ? window : global;
 
-  scope.Moment = Moment;
+  scope.Time = Time;
 
   scope._size = _size;
 
-  scope.to_lz = Moment.toLeadingZero;
+  scope.to_lz = Time.toLeadingZero;
 
-  Moment.addLocale(DefaultMomentLocale.localeName, DefaultMomentLocale.locale);
+  Time.addLocale(DefaultTimeLocale.localeName, DefaultTimeLocale.locale);
 
-  Moment.setDefaultLocale('en');
+  Time.setDefaultLocale('en');
 
 }).call(this);

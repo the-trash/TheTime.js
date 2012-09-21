@@ -5,7 +5,7 @@
 Begin and End with milliseconds precision
 
 ```javascript
-M = new Moment
+M = new Time
 
 M.begin_of_day()
 M.end_of_day()
