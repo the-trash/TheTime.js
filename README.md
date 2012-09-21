@@ -6,6 +6,10 @@ TheTime.js - Time&Date Framework for JS and Node.js
 
 ![It is time to fix broken clocks](https://raw.github.com/the-teacher/TheTime.js/master/liquid_clock.jpg)
 
+### First of all - LiveDemo
+
+[CalendarScript based on TheTime.js](http://jsfiddle.net/vycFT/)
+
 ### Keywords
 
 TheTime.js, Wrapper for JavaScript Date object, JavaScript Date and Time functions, JavaScript Date Framework
