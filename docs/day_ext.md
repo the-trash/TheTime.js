@@ -1,9 +1,9 @@
-## TheTime.js Day Ext Module
+## TheTime.js Day Ext Todule
 
 Extension of day's functions
 
 ```javascript
-M = new Moment
+T = new Time
 ```
 
 Check for day's period
@@ -16,38 +16,38 @@ Check for day's period
 Change it if it's need
 
 ```javascript
-M.is_night()   // true | false
-M.is_morning() // true | false
-M.is_day()     // true | false
-M.is_evening() // true | false
+T.is_night()   // true | false
+T.is_morning() // true | false
+T.is_day()     // true | false
+T.is_evening() // true | false
 ```
 
 Localized name of day's period
 
 ```javascript
-M.part_of_day() // night | morning | day | evening
+T.part_of_day() // night | morning | day | evening
 ```
 
 Check for day of week
 
 ```javascript
-M.is_monday()    // true | false
-M.is_tuesday()   // true | false
-M.is_wednesday() // true | false
-M.is_thursday()  // true | false
-M.is_friday()    // true | false
-M.is_saturday()  // true | false
-M.is_sunday()    // true | false
+T.is_monday()    // true | false
+T.is_tuesday()   // true | false
+T.is_wednesday() // true | false
+T.is_thursday()  // true | false
+T.is_friday()    // true | false
+T.is_saturday()  // true | false
+T.is_sunday()    // true | false
 ```
 
 Shortcuts
 
 ```javascript
-M.is_mon() // true | false
-M.is_tue() // true | false
-M.is_wed() // true | false
-M.is_thu() // true | false
-M.is_fri() // true | false
-M.is_sat() // true | false
-M.is_sun() // true | false
+T.is_mon() // true | false
+T.is_tue() // true | false
+T.is_wed() // true | false
+T.is_thu() // true | false
+T.is_fri() // true | false
+T.is_sat() // true | false
+T.is_sun() // true | false
 ```

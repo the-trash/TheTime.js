@@ -1,41 +1,41 @@
 (function() {
 
-  Moment.prototype.months_diff = function(M1, M2) {
+  Time.prototype.months_diff = function(T1, T2) {
     var months_between, years, years_abs;
-    M1 = Moment.want(M1);
-    M2 = Moment.want(M2);
-    years = M1.year - M2.year;
+    T1 = Time.want(T1);
+    T2 = Time.want(T2);
+    years = T1.year - T2.year;
     years_abs = Math.abs(years);
     if (years > 0) {
       months_between = (years_abs - 1) * 12;
-      return (12 - M2.month) + months_between + M1.month;
+      return (12 - T2.month) + months_between + T1.month;
     } else if (years < 0) {
       months_between = (years_abs - 1) * 12;
-      return -((12 - M1.month) + months_between + M2.month);
+      return -((12 - T1.month) + months_between + T2.month);
     } else {
-      return M1.month - M2.month;
+      return T1.month - T2.month;
     }
   };
 
-  Moment.diff = function(M1, M2) {
-    M1 = Moment.want(M1);
-    M2 = Moment.want(M2);
-    return M1.diff(M2);
+  Time.diff = function(T1, T2) {
+    T1 = Time.want(T1);
+    T2 = Time.want(T2);
+    return T1.diff(T2);
   };
 
-  Moment.prototype.diff = function(M) {
+  Time.prototype.diff = function(T) {
     var hours, min, res, sec;
-    M = Moment.want(M);
+    T = Time.want(T);
     sec = 60;
     min = 60;
     hours = 24;
     res = {
-      unix: this.unix - M.unix,
-      unix_ms: this.unix_ms - M.unix_ms,
-      shift: this.shift - M.shift,
-      months: this.months_diff(this, M)
+      unix: this.unix - T.unix,
+      unix_ms: this.unix_ms - T.unix_ms,
+      shift: this.shift - T.shift,
+      years: this.year - T.year,
+      months: this.months_diff(this, T)
     };
-    res.years = res.months / 12;
     res.weeks = res.unix / (sec * min * hours * 7);
     res.days = res.unix / (sec * min * hours);
     res.hours = res.unix / (sec * min);
@@ -53,14 +53,12 @@
       ms: Math.abs(res.unix_ms)
     };
     res.int = {
-      years: parseInt(res.abs.years, 10),
-      months: res.abs.months,
-      weeks: parseInt(res.abs.weeks, 10),
-      days: parseInt(res.abs.days, 10),
-      hours: parseInt(res.abs.hours, 10),
-      mins: parseInt(res.abs.mins, 10),
-      secs: parseInt(res.abs.secs, 10),
-      ms: parseInt(res.abs.ms, 10)
+      weeks: parseInt(res.abs.weeks),
+      days: parseInt(res.abs.days),
+      hours: parseInt(res.abs.hours),
+      mins: parseInt(res.abs.mins),
+      secs: parseInt(res.abs.secs),
+      ms: parseInt(res.abs.ms)
     };
     res.tail = {
       hours: res.int.hours % 24,

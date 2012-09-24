@@ -1,18 +1,18 @@
 (function() {
 
-  Moment.prototype.to_s = function() {
+  Time.prototype.to_s = function() {
     return this.date.toString();
   };
 
-  Moment.prototype.utc = function() {
+  Time.prototype.utc = function() {
     return this.date.toUTCString();
   };
 
-  Moment.prototype.gmt = function() {
+  Time.prototype.gmt = function() {
     return this.date.toGMTString();
   };
 
-  Moment.prototype.to_gmt_hash = function() {
+  Time.prototype.to_gmt_hash = function() {
     var gmt;
     gmt = this.to_gmt_a();
     return {
@@ -27,11 +27,11 @@
     };
   };
 
-  Moment.prototype.dump = function() {
+  Time.prototype.dump = function() {
     return "" + this.year + "." + this.month + "." + this.day + " " + this.hours + ":" + this.mins + ":" + this.secs + "/" + this.ms + " [shift:" + this.shift + "/UNIX:" + this.unix + "/UNIXms:" + this.unix_ms + "]";
   };
 
-  Moment.prototype.to_gmt_a = function() {
+  Time.prototype.to_gmt_a = function() {
     var day, gmt, hours, mins, month, part, secs, str, tpart, year;
     str = this.gmt();
     part = str.split(' ');

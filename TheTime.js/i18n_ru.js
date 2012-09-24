@@ -1,7 +1,7 @@
 (function() {
-  var RuMomentLocale, scope;
+  var RuTimeLocale, scope;
 
-  RuMomentLocale = {
+  RuTimeLocale = {
     localeName: 'ru',
     locale: {
       'month': {
@@ -25,6 +25,6 @@
 
   scope = typeof window === 'object' ? window : global;
 
-  scope.RuMomentLocale = RuMomentLocale;
+  scope.RuTimeLocale = RuTimeLocale;
 
 }).call(this);

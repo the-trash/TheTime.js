@@ -1,12 +1,12 @@
-## TheTime.js Difference Module
+## TheTime.js Difference Todule
 
 Return **diff** structure with many pre-calculated difference variables
 
 ```javascript
-M1 = new Moment([2010, 9, 13, 12, 53, 46])
-M2 = new Moment([2012, 3, 20, 23, 34, 11])
+T1 = new Time([2010, 9, 13, 12, 53, 46])
+T2 = new Time([2012, 3, 20, 23, 34, 11])
 
-diff = M1.diff(M2)
+diff = T1.diff(T2)
 ```
 
 Difference values
@@ -57,7 +57,7 @@ diff.tail.secs  // 25
 diff.tail.ms    // 0
 ```
 
-How many months between M1.month and M2.month?
+How many months between T1.month and T2.month?
 
 ```javascript
 diff.months_between // 17
