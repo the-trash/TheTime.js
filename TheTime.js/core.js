@@ -1,105 +1,378 @@
 (function() {
+  var Time, scope, _size,
+    _this = this;
 
-  this.compactArray = function(array) {
-    return array.filter(function(e) {
-      return e;
-    });
+  Date.prototype.to_t = function() {
+    return new Time(_this);
   };
 
-  this.OrderedHash = (function() {
-
-    function OrderedHash(array) {
-      if (array == null) {
-        array = [];
-      }
-      this.data = [];
-      if (array.length > 0) {
-        this.data = array;
+  _size = function(obj) {
+    var key, size;
+    size = 0;
+    for (key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        size++;
       }
     }
+    return size;
+  };
 
-    OrderedHash.prototype.get = function() {
-      return this.data;
+  Time = (function() {
+
+    Time.to_dance = "Oppa is Gangnam style!";
+
+    Time.toLeadingZero = function(int, sign) {
+      var num, t, _sign;
+      if (sign == null) {
+        sign = false;
+      }
+      num = Math.abs(int);
+      _sign = int < 0 ? '-' : '';
+      _sign = sign ? _sign : '';
+      return t = Math.abs(int) < 10 ? "" + _sign + "0" + num : "" + _sign + num;
     };
 
-    OrderedHash.prototype.push = function(obj) {
-      this.data.push(obj);
-      return this.sortByKey();
+    Time.prototype.locales = {};
+
+    Time.prototype.localeName = null;
+
+    Time.prototype.currentLocale = null;
+
+    Time["new"] = function(data) {
+      return new Time(data);
     };
 
-    OrderedHash.prototype.deleteByKey = function(key) {
-      var index, item, name, value, _ref;
-      _ref = this.data;
-      for (index in _ref) {
-        item = _ref[index];
-        for (name in item) {
-          value = item[name];
-          if (name.toString() === key.toString()) {
-            delete this.data[index];
-          }
+    Time.addLocale = function(name, locale) {
+      Time.prototype.locales[name] = locale;
+      return Time.prototype.localeName = name;
+    };
+
+    Time.setDefaultLocale = function(name) {
+      Time.prototype.localeName = name;
+      return Time.prototype.currentLocale = Time.prototype.locales[name];
+    };
+
+    Time.want = function(T) {
+      return T = T instanceof Time ? T : new Time(T);
+    };
+
+    Time.prototype.setLocale = function(name) {
+      this.localeName = name;
+      this.currentLocale = this.locales[name];
+      return this.t = this.currentLocale;
+    };
+
+    function Time(date) {
+      var l, n, _ref;
+      this.scope = typeof window === 'object' ? window : global;
+      this.offset = this._offset(new Date);
+      if (_size(this.locales) === 0) {
+        _ref = [DefaultTimeLocale.localeName, DefaultTimeLocale.locale], n = _ref[0], l = _ref[1];
+        Time.addLocale(n, l);
+        Time.setDefaultLocale(n);
+      }
+      this.t = this.currentLocale;
+      this.parse(date);
+    }
+
+    Time.prototype.month_name = function() {
+      return this.t.month.name[this.month];
+    };
+
+    Time.prototype.day_name = function() {
+      return this.t.day.name[this.day_of_week()];
+    };
+
+    Time.prototype.day_of_week = function(date) {
+      var day;
+      if (date == null) {
+        date = this.date;
+      }
+      day = date.getDay();
+      return day = day === 0 ? 7 : day;
+    };
+
+    Time.prototype.to_a = function() {
+      return [this.year, this.month, this.day, this.hours, this.mins, this.secs, this.ms, this.offset];
+    };
+
+    Time.prototype.to_hash = function() {
+      return {
+        year: this.year,
+        month: this.month,
+        day: this.day,
+        hours: this.hours,
+        mins: this.mins,
+        secs: this.secs,
+        ms: this.ms,
+        offset: this.offset
+      };
+    };
+
+    Time.prototype.toMonthString = function() {
+      return "" + this.year + "." + this.month;
+    };
+
+    Time.prototype.toDayString = function() {
+      return "" + this.year + "." + this.month + "." + this.day;
+    };
+
+    Time.prototype.set = function(d) {
+      return this.parse(d);
+    };
+
+    Time.prototype.setYear = function(y) {
+      var d;
+      d = this.date;
+      d.setYear(y);
+      return this.parse(d);
+    };
+
+    Time.prototype.setMonth = function(m) {
+      var d;
+      d = this.date;
+      d.setMonth(m - 1);
+      return this.parse(d);
+    };
+
+    Time.prototype.setDay = function(_d) {
+      var d;
+      d = this.date;
+      d.setDate(_d);
+      return this.parse(d);
+    };
+
+    Time.prototype.setHours = function(h) {
+      var d;
+      d = this.date;
+      d.setHours(h);
+      return this.parse(d);
+    };
+
+    Time.prototype.setMins = function(m) {
+      var d;
+      d = this.date;
+      d.setMinutes(m);
+      return this.parse(d);
+    };
+
+    Time.prototype.setSecs = function(s) {
+      var d;
+      d = this.date;
+      d.setSeconds(s);
+      return this.parse(d);
+    };
+
+    Time.prototype.setMs = function(ms) {
+      var d;
+      d = this.date;
+      d.setMilliseconds(ms);
+      return this.parse(d);
+    };
+
+    Time.prototype.setUnix = function(sec) {
+      return this.parse(sec);
+    };
+
+    Time.prototype.setUnixMs = function(ms) {
+      return this.parseDate(new Date(ms));
+    };
+
+    Time.prototype.setDateByInstances = function() {
+      var date, month;
+      date = new Date('1970/1/1');
+      month = this.month > 0 ? this.month - 1 : this.month;
+      date.setFullYear(this.year);
+      date.setMonth(month);
+      date.setDate(this.day);
+      date.setHours(this.hours);
+      date.setMinutes(this.mins);
+      date.setSeconds(this.secs);
+      date.setMilliseconds(this.ms);
+      return this.date = date;
+    };
+
+    Time.prototype._year = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getFullYear();
+    };
+
+    Time.prototype._month = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getMonth() + 1;
+    };
+
+    Time.prototype._day = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getDate();
+    };
+
+    Time.prototype._hours = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getHours();
+    };
+
+    Time.prototype._mins = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getMinutes();
+    };
+
+    Time.prototype._secs = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getSeconds();
+    };
+
+    Time.prototype._ms = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getMilliseconds();
+    };
+
+    Time.prototype._offset = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return -(date.getTimezoneOffset() / 60);
+    };
+
+    Time.prototype._unix_ms = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      return date.getTime();
+    };
+
+    Time.prototype.parse = function(date) {
+      var empty;
+      if (!date) {
+        this.parseDate();
+      }
+      if (typeof date === 'string') {
+        empty = date === '';
+        if (empty) {
+          this.parseDate();
+        }
+        if (!empty) {
+          this.parseString(date);
         }
       }
-      return this.data = compactArray(this.data);
-    };
-
-    OrderedHash.prototype.first = function() {
-      return this.data[0];
-    };
-
-    OrderedHash.prototype.last = function() {
-      return this.data[this.data.length - 1];
-    };
-
-    OrderedHash.prototype.sortByKey = function(reverse) {
-      if (reverse == null) {
-        reverse = false;
+      if (typeof date === 'number') {
+        this.parseNumber(date * 1000);
       }
-      return this.data.sort(function(a, b) {
-        var akey, anum, bkey, bnum, key, r, value, _ref;
-        for (key in a) {
-          value = a[key];
-          akey = key;
+      if (typeof date === 'object') {
+        if (date instanceof Date) {
+          return this.parseDate(date);
         }
-        for (key in b) {
-          value = b[key];
-          bkey = key;
+        if (date instanceof Array) {
+          return this.parseArray(date);
         }
-        anum = parseInt(akey, 10);
-        bnum = parseInt(bkey, 10);
-        if (typeof anum === 'number' && typeof bnum === 'number') {
-          akey = anum;
-          bkey = bnum;
+        if (date instanceof Object) {
+          return this.parseHash(date);
         }
-        if (reverse) {
-          _ref = [bkey, akey], akey = _ref[0], bkey = _ref[1];
+        if (date instanceof Time) {
+          return new Time(date.to_a());
         }
-        return r = akey > bkey ? 1 : akey < bkey ? -1 : 0;
-      });
-    };
-
-    OrderedHash.prototype.sortByValue = function(reverse) {
-      if (reverse == null) {
-        reverse = false;
       }
-      return this.data.sort(function(a, b) {
-        var avalue, bvalue, key, r, value, _ref;
-        for (key in a) {
-          value = a[key];
-          avalue = value.toString().toLowerCase();
-        }
-        for (key in b) {
-          value = b[key];
-          bvalue = value.toString().toLowerCase();
-        }
-        if (reverse) {
-          _ref = [bvalue, avalue], avalue = _ref[0], bvalue = _ref[1];
-        }
-        return r = avalue > bvalue ? 1 : avalue < bvalue ? -1 : 0;
-      });
+      return this;
     };
 
-    return OrderedHash;
+    Time.prototype.parseDate = function(date) {
+      if (date == null) {
+        date = new Date;
+      }
+      this.date = date;
+      this.year = this._year(this.date);
+      this.month = this._month(this.date);
+      this.day = this._day(this.date);
+      this.hours = this._hours(this.date);
+      this.mins = this._mins(this.date);
+      this.secs = this._secs(this.date);
+      this.ms = this._ms(this.date);
+      this.unix_ms = this._unix_ms(this.date);
+      this.unix = Math.round(this.unix_ms / 1000);
+      return this;
+    };
+
+    Time.prototype.parseArray = function(date) {
+      var _date;
+      if (date.length === 0) {
+        return this.parseDate();
+      }
+      _date = new Date('1970/1/1');
+      this.year = date[0] ? date[0] : this._year(_date);
+      this.month = date[1] ? date[1] : 1;
+      this.day = date[2] ? date[2] : 1;
+      this.hours = date[3] ? date[3] : 0;
+      this.mins = date[4] ? date[4] : 0;
+      this.secs = date[5] ? date[5] : 0;
+      this.ms = date[6] ? date[6] : 0;
+      this.setDateByInstances();
+      return this.parseDate(this.date);
+    };
+
+    Time.prototype.parseHash = function(date) {
+      var empty_hash, _date;
+      empty_hash = !date['year'] && !date['month'] && !date['day'] && !date['hours'] && !date['mins'] && !date['secs'] && !date['ms'];
+      if (empty_hash) {
+        return this.parseDate();
+      }
+      _date = new Date('1970/1/1');
+      this.year = date['year'] ? date['year'] : this._year(_date);
+      this.month = date['month'] ? date['month'] : 1;
+      this.day = date['day'] ? date['day'] : 1;
+      this.hours = date['hours'] ? date['hours'] : 0;
+      this.mins = date['mins'] ? date['mins'] : 0;
+      this.secs = date['secs'] ? date['secs'] : 0;
+      this.ms = date['ms'] ? date['ms'] : 0;
+      this.setDateByInstances();
+      return this.parseDate(this.date);
+    };
+
+    Time.prototype.parseString = function(date) {
+      var _date;
+      if (date.match('-') && date.match(':') && !date.match('T')) {
+        date = date.replace(/-/g, '/');
+      }
+      if (date.match('\\.') && !date.match(':')) {
+        return this.parseArray(date.split('.'));
+      }
+      _date = new Date(Date.parse(date));
+      return this.parseDate(_date);
+    };
+
+    Time.prototype.parseNumber = function(date) {
+      var _date;
+      _date = new Date(date);
+      return this.parseDate(_date);
+    };
+
+    return Time;
 
   })();
+
+  scope = typeof window === 'object' ? window : global;
+
+  scope.Time = Time;
+
+  scope._size = _size;
+
+  scope.to_lz = Time.toLeadingZero;
+
+  Time.addLocale(DefaultTimeLocale.localeName, DefaultTimeLocale.locale);
+
+  Time.setDefaultLocale('en');
 
 }).call(this);
