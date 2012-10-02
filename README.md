@@ -8,7 +8,7 @@ TheTime.js - Time&Date Framework for JS and Node.js
 
 ### LiveDemo of CalendarScript based on TheTime.js
 
-[CalendarScript based on TheTime.js](http://jsfiddle.net/MTAGG/)
+[CalendarScript based on TheTime.js](http://jsfiddle.net/MTAGG/1/)
 
 ### Keywords
 
