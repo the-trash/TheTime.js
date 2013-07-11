@@ -216,7 +216,7 @@ T.addLocale(RuLocaleObject)
 T.setLocale('ru')
 ```
 
-### License TIT
+### License MIT
 
 Copyright (c) 2012 Ilya N. Zykin
 
